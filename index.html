@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eduardo Sampaio</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column; each case is a workflow strip (trigger → steps → result), like a pipeline card */
+:root{
+  --bg:#F3F5F4; --surface:#FFFFFF; --ink:#18232B; --muted:#56646C; --line:#D5DCDA;
+  --accent:#0E7A6A; --accent-soft:#DDEFEB;
+  --ok:#2E8B57; --warn:#C98A12; --late:#C0453A;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#111A1F; --surface:#18242A; --ink:#E6ECEA; --muted:#9AA8AE; --line:#2C3A40;
+  --accent:#4CC4AE; --accent-soft:#16352F; --ok:#5BC08A; --warn:#E3B04B; --late:#E57367; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111A1F; --surface:#18242A; --ink:#E6ECEA; --muted:#9AA8AE; --line:#2C3A40;
+  --accent:#4CC4AE; --accent-soft:#16352F; --ok:#5BC08A; --warn:#E3B04B; --late:#E57367; color-scheme:dark}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:40px 64px}
+.wrap{max-width:760px;margin:0 auto;display:grid;gap:56px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.1}
+p{margin:0}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+header{display:grid;gap:18px}
+header h1{font-size:clamp(2.4rem,7vw,3.8rem);font-weight:700;letter-spacing:-.02em}
+.role{font-family:var(--display);font-size:clamp(1.15rem,3vw,1.45rem);font-weight:500;color:var(--muted)}
+.lede{max-width:62ch}
+.tags{display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:0;list-style:none}
+.tags li{font:500 13px/1 var(--mono);padding:7px 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+.contact{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{font:600 14px/1 var(--body);padding:11px 14px;border-radius:8px;border:1px solid var(--accent);color:var(--accent);background:transparent;text-decoration:none;cursor:pointer}
+.btn.primary{background:var(--accent);color:var(--bg)}
+.btn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.mail{font:500 14px/1 var(--mono);color:var(--muted);user-select:all}
+section{display:grid;gap:22px}
+section>h2{font-size:1.6rem}
+.case{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:22px;display:grid;gap:14px}
+.case h3{font-size:1.25rem}
+.meta{font:400 12.5px/1.4 var(--mono);color:var(--muted)}
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0;padding:0;list-style:none}
+.flow li{font:500 12.5px/1.3 var(--mono);padding:7px 10px;border-radius:6px;background:var(--accent-soft);color:var(--ink)}
+.flow li.trg{background:transparent;border:1px dashed var(--accent)}
+.flow .arr{background:none;padding:0 2px;color:var(--muted)}
+.sla{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;font:500 12.5px/1 var(--mono);padding:6px 9px;border:1px solid var(--line);border-radius:99px}
+.dot{width:8px;height:8px;border-radius:50%}
+.result{border-top:1px solid var(--line);padding-top:12px;font-weight:500}
+.result b{color:var(--accent)}
+.timeline{display:grid;gap:18px}
+.job{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px}
+.job h3{font-size:1.05rem;font-family:var(--body);font-weight:600}
+.job .when{font:400 13px/1.5 var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.job p{grid-column:1/-1;color:var(--muted);font-size:15px}
+footer{color:var(--muted);font-size:14px;border-top:1px solid var(--line);padding-top:20px}
+@media (max-width:520px){.job{grid-template-columns:1fr}.case{padding:18px}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Portfólio · AI Builder</span>
+    <h1>Eduardo Sampaio de Oliveira</h1>
+    <p class="role">Automação de processos, integrações via API e dados</p>
+    <p class="lede">Formando em Análise e Desenvolvimento de Sistemas (Senac, dez/2026). Construo soluções de ponta a ponta que tiram trabalho manual das equipes: do problema da operação ao fluxo rodando todos os dias.</p>
+    <ul class="tags"><li>n8n</li><li>HubSpot</li><li>APIs REST</li><li>Python · Pandas</li><li>SQL</li><li>Power BI</li></ul>
+    <div class="contact">
+      <a class="btn primary" href="https://www.linkedin.com/in/eduardo-sampaio" target="_blank" rel="noopener">LinkedIn</a>
+      <button class="btn" id="copy" type="button">Copiar e-mail</button>
+      <span class="mail" id="mail">eduardosampaio652@gmail.com</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>Projetos entregues</h2>
+
+    <article class="case">
+      <span class="meta">SyOS · HubSpot workflows · 2026</span>
+      <h3>Status de SLA em quatro pipelines de operação</h3>
+      <p>A operação não sabia, olhando o card, se um ticket estava dentro do prazo. Criei o campo de Status de SLA e os workflows que o atualizam sozinhos nos pipelines de Boas-vindas, Planejamento, Estoque e Des/Instalação.</p>
+      <ul class="flow" aria-label="Fluxo do SLA">
+        <li class="trg">ticket muda de etapa</li><li class="arr">→</li>
+        <li>calcula prazo em dias úteis</li><li class="arr">→</li>
+        <li>compara com a data atual</li><li class="arr">→</li>
+        <li>grava status no card</li>
+      </ul>
+      <div class="sla" aria-label="Estados do SLA">
+        <span class="chip"><span class="dot" style="background:var(--ok)"></span>no prazo</span>
+        <span class="chip"><span class="dot" style="background:var(--warn)"></span>vence em breve</span>
+        <span class="chip"><span class="dot" style="background:var(--late)"></span>atrasado</span>
+      </div>
+      <p class="result"><b>Resultado:</b> o prazo de cada ticket fica visível no próprio card, nos 4 pipelines, sem conferência manual.</p>
+    </article>
+
+    <article class="case">
+      <span class="meta">SyOS · n8n + API do HubSpot · 2026</span>
+      <h3>Propagação automática de dados entre objetos</h3>
+      <p>Informações de Unidades, Serviços e Tickets precisavam ser copiadas à mão entre registros associados. Montei fluxos no n8n que leem a associação pela API e propagam os dados.</p>
+      <ul class="flow" aria-label="Fluxo de integração">
+        <li class="trg">registro atualizado</li><li class="arr">→</li>
+        <li>busca associados via API</li><li class="arr">→</li>
+        <li>aplica regras</li><li class="arr">→</li>
+        <li>atualiza tickets</li>
+      </ul>
+      <p class="result"><b>Resultado:</b> dados consistentes entre objetos e tickets atualizados sem intervenção.</p>
+    </article>
+
+    <article class="case">
+      <span class="meta">SyOS · Python (Pandas) · 2026</span>
+      <h3>Saneamento e importação em massa de unidades</h3>
+      <p>Planilhas da operação e exportações do CRM usavam identificadores diferentes. Cruzei as bases em Pandas, fiz o de-para de IDs, tratei inconsistências e importei tudo de uma vez.</p>
+      <ul class="flow" aria-label="Fluxo de dados">
+        <li class="trg">planilhas + export do CRM</li><li class="arr">→</li>
+        <li>de-para de IDs</li><li class="arr">→</li>
+        <li>trata inconsistências</li><li class="arr">→</li>
+        <li>importação em massa</li>
+      </ul>
+      <p class="result"><b>Resultado:</b> cerca de <b>360 unidades</b> atualizadas no CRM.</p>
+    </article>
+
+    <article class="case">
+      <span class="meta">SyOS · Relatórios HubSpot · 2026</span>
+      <h3>Painéis de acompanhamento da operação</h3>
+      <p>Painéis por pipeline com contadores por status, gráficos de aderência a prazo e a lista de tickets ativos e pausados, usados pelo time de Operações no dia a dia.</p>
+      <p class="result"><b>Resultado:</b> a operação acompanha prazos e gargalos sem montar planilhas.</p>
+    </article>
+  </section>
+
+  <section>
+    <h2>Trajetória</h2>
+    <div class="timeline">
+      <div class="job"><h3>Estagiário de CRM · SyOS</h3><span class="when">jan 2026 – atual</span><p>Administração do HubSpot, automações com n8n e API, painéis e documentação de processos.</p></div>
+      <div class="job"><h3>Estagiário de Dados e Mídia (AdOps) · AlmapBBDO</h3><span class="when">set 2025 – atual</span><p>CM360, tags e trackings, reports diários para clientes como Volkswagen, Gol e Cielo.</p></div>
+      <div class="job"><h3>Jovem Aprendiz, Suprimentos · TIVIT</h3><span class="when">jan 2024 – mai 2025</span><p>Pedidos de compra no SAP MM, notas fiscais e KPIs da área de compras.</p></div>
+      <div class="job"><h3>Análise e Desenvolvimento de Sistemas · Senac</h3><span class="when">ago 2024 – dez 2026</span><p>Certificações em Python para Data Science, SQL, Power BI e BI (FIAP).</p></div>
+    </div>
+  </section>
+
+  <footer>São Paulo/SP · Inglês intermediário (B1)</footer>
+</div>
+
+<script>
+document.getElementById('copy').addEventListener('click',e=>{
+  const t=document.getElementById('mail').textContent,b=e.currentTarget;
+  const done=()=>{b.textContent='E-mail copiado';setTimeout(()=>b.textContent='Copiar e-mail',2000)};
+  const sel=()=>{const r=document.createRange();r.selectNodeContents(document.getElementById('mail'));const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selecionado, copie';};
+  try{navigator.clipboard.writeText(t).then(done,sel)}catch(_){sel()}
+});
+</script>
+</body>
+</html>
